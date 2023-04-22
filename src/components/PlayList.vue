@@ -31,9 +31,10 @@ import NowPlaying from '@/components/NowPlaying.vue'
                     song_id: event.currentTarget.getAttribute(`song_id`),
                 }
                 //Find the index of the song that was clicked to remove it from the playlist_array
-                let index = this.new_play_list.findIndex((click_song) => {click_song.song_id === event.currentTarget.getAttribute(`song_id`)});
+                let index = this.new_play_list.findIndex((object) => { 
+                    //this took me forever, but I finally catched on the fact that my attribute would return a string and so I should use == instead of ===
+                    return object.song_id == event.currentTarget.getAttribute(`song_id`)});
                 this.new_play_list.splice(index, 1);
-                event.currentTarget.remove();
 
             }
         },
