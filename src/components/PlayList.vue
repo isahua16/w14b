@@ -1,12 +1,15 @@
 <template>
     <div>
         <now-playing :playing_song="playing_song"></now-playing>
-        <div>
+        <div v-if="play_list !== undefined">
             <h2>Play List</h2>
             <article v-for="(song, i) in play_list" :key="i" @click="play_song" :title="song.title" :artist="song.artist" :image_url="song.image_url" :song_id="song.song_id">
                 <img :src="song.image_url" :alt="song.title">
                 <h3>{{song.title}} by {{song.artist}}</h3>
              </article>
+        </div>
+        <div v-else>
+            <h2>Select a song from the list</h2>
         </div>
     </div>
 
