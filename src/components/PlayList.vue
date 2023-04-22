@@ -1,7 +1,7 @@
 <template>
     <div>
         <now-playing :playing_song="playing_song"></now-playing>
-        <div v-if="play_list !== undefined">
+        <div v-if="play_list.length >= 1">
             <h2>Play List</h2>
             <article v-for="(song, i) in play_list" :key="i" @click="play_song" :title="song.title" :artist="song.artist" :image_url="song.image_url" :song_id="song.song_id">
                 <img :src="song.image_url" :alt="song.title">
@@ -30,7 +30,7 @@ import NowPlaying from '@/components/NowPlaying.vue'
         },
         data() {
             return {
-                playing_song: undefined
+                playing_song: undefined,
             }
         },
         components: {
