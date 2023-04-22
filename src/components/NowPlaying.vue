@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Now Playing</h1>
+        <h2>Now Playing</h2>
         <div>
             <img :src="playing_song.image_url" :alt="playing_song.title">
             <h3>{{playing_song.title}} by {{playing_song.artist}}</h3>

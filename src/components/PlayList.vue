@@ -1,9 +1,9 @@
 <template>
     <div>
         <now-playing :playing_song="playing_song"></now-playing>
-        <div v-if="play_list.length >= 1">
+        <div v-if="new_play_list.length >= 1">
             <h2>Play List</h2>
-            <article v-for="(song, i) in play_list" :key="i" @click="play_song" :title="song.title" :artist="song.artist" :image_url="song.image_url" :song_id="song.song_id">
+            <article v-for="(song, i) in new_play_list" :key="i" @click="play_song" :title="song.title" :artist="song.artist" :image_url="song.image_url" :song_id="song.song_id">
                 <img :src="song.image_url" :alt="song.title">
                 <h3>{{song.title}} by {{song.artist}}</h3>
              </article>
@@ -20,17 +20,27 @@ import NowPlaying from '@/components/NowPlaying.vue'
     export default {
         methods: {
             play_song: function(event) {
+                //If a song is already playing, push it back to the new_play_list before updating it to clicked song
+                if(this.playing_song !== undefined) {
+                    this.new_play_list.push(this.playing_song);
+                } 
                 this.playing_song = {
                     title: event.currentTarget.getAttribute(`title`),
                     artist: event.currentTarget.getAttribute(`artist`),
                     image_url: event.currentTarget.getAttribute(`image_url`),
-                    song_id: event.currentTarget.getAttribute(`song_id`)
+                    song_id: event.currentTarget.getAttribute(`song_id`),
                 }
+                //Find the index of the song that was clicked to remove it from the playlist_array
+                let index = this.new_play_list.findIndex((click_song) => {click_song.song_id === event.currentTarget.getAttribute(`song_id`)});
+                this.new_play_list.splice(index, 1);
+                event.currentTarget.remove();
+
             }
         },
         data() {
             return {
                 playing_song: undefined,
+                new_play_list: this.play_list
             }
         },
         components: {
