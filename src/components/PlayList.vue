@@ -34,6 +34,7 @@ import NowPlaying from '@/components/NowPlaying.vue'
                 let index = this.new_play_list.findIndex((object) => { 
                     //this took me forever, but I finally catched on the fact that my attribute would return a string and so I should use == instead of ===
                     return object.song_id == event.currentTarget.getAttribute(`song_id`)});
+                //Remove the object from the array at the index determined above.
                 this.new_play_list.splice(index, 1);
 
             }
